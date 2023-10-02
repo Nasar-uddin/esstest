@@ -2,6 +2,7 @@ import 'package:essapp/widgets/custom_inputs/custom_audio_input.dart';
 import 'package:essapp/widgets/custom_inputs/custom_image_picker_field.dart';
 import 'package:essapp/widgets/custom_inputs/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
 class FeedbackPage extends StatelessWidget {
@@ -45,7 +46,8 @@ class FeedbackPage extends StatelessWidget {
               child: ElevatedButton(
                 child: const Text("Submit"),
                 onPressed: (){
-                  
+                  Fluttertoast.showToast(msg: "Your feedback us submitted");
+                  Navigator.pop(context);
                 },
               ),
             )

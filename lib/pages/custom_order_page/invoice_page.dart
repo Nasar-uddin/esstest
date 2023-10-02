@@ -82,20 +82,24 @@ class _InvoicePageState extends State<InvoicePage> {
                         child: Row(
                           children: [
                             Expanded(
+                              flex: 3,
                               child: Text(
                                 entity.value.label ?? "",
                                 style: labelTextStyle,
                               ),
                             ),
-                            entity.value.value.toString().contains("http")
+                            Expanded(
+                              flex: 1,
+                              child: entity.value.value.toString().contains("http")
                               ? Image.network(
                                 entity.value.value,
-                                height: 80,  
+                                height: 80
                               )
                               : Image.file(
                                 File(entity.value.value),
                                 height: 80,
                               )
+                            ),
                           ],
                         ),
                       );
@@ -105,14 +109,18 @@ class _InvoicePageState extends State<InvoicePage> {
                       child: Row(
                         children: [
                           Expanded(
+                            flex: 3,
                             child: Text(
                               entity.value.label ?? "",
                               style: labelTextStyle,
                             )
                           ),
-                          Text(
-                            "${entity.value.value}",
-                            style: valueTextStyle,
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              "${entity.value.value}",
+                              style: valueTextStyle,
+                            ),
                           )
                         ],
                       ),

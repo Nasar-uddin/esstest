@@ -64,24 +64,33 @@ class Sections {
 }
 
 class ValueMapping {
-  List? searchList;
-  List? displayList;
+  List<ValueMappingItem>? searchList;
+  List<ValueMappingItem>? displayList;
 
   ValueMapping({this.searchList, this.displayList});
 
   ValueMapping.fromJson(Map<String, dynamic> json) {
-    searchList = json['searchList'];
-
-    displayList = json['displayList'];
+    if (json['displayList'] != null) {
+      displayList = <ValueMappingItem>[];
+      json['displayList'].forEach((v) {
+        displayList!.add(ValueMappingItem.fromJson(v));
+      });
+    }
+    if (json['searchList'] != null) {
+      searchList = <ValueMappingItem>[];
+      json['searchList'].forEach((v) {
+        searchList!.add(ValueMappingItem.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
     if (searchList != null) {
-      data['searchList'] = searchList;
+      data['searchList'] = searchList!.map((v) => v.toJson()).toList();
     }
     if (displayList != null) {
-      data['displayList'] = displayList;
+      data['displayList'] = displayList!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -105,6 +114,25 @@ class Fields {
     data['id'] = id;
     data['key'] = key;
     data['properties'] = properties;
+    return data;
+  }
+}
+
+class ValueMappingItem {
+  String? fieldKey;
+  String? dataColumn;
+
+  ValueMappingItem({this.fieldKey, this.dataColumn});
+
+  ValueMappingItem.fromJson(Map<String, dynamic> json) {
+    fieldKey = json['fieldKey'];
+    dataColumn = json['dataColumn'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['fieldKey'] = fieldKey;
+    data['dataColumn'] = dataColumn;
     return data;
   }
 }

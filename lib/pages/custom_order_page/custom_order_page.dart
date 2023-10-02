@@ -61,28 +61,23 @@ class _CustomOrderPageState extends State<CustomOrderPage> {
                       child: ListView(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        children: snapshot.data?.sections?.map((section) => Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              section.name ?? "",
-                              style: const TextStyle(
-                                fontSize: 16,
+                        children: snapshot.data?.sections?.map((section){
+                          int? sectionIndex = snapshot.data?.sections?.indexOf(section);
+                          return Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                section.name ?? "",
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 12.0),
-                            DynamicFormBuilder(fields: section.fields ?? []),
-                            /*ListView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: section.fields?.length ?? 0,
-                              itemBuilder: (BuildContext ctx, index){
-                                return Text(section.fields?[index].properties?['label'] ?? "");
-                              }
-                            )*/
-                          ],
-                        )).toList() ?? [],
+                              const SizedBox(height: 12.0),
+                              DynamicFormBuilder(fields: section.fields ?? [], sectionIndex: sectionIndex ?? 0),
+                            ],
+                          );
+                        }).toList() ?? [],
                       ),
                     ),
                     Row(
